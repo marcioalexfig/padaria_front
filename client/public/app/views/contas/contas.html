@@ -1,0 +1,56 @@
+<script type="text/javascript">
+	$(() => {
+		$(window).scroll(painelAcoes_relocate);
+		painelAcoes_relocate();
+
+		$("#txtDtPagamento").datepicker({ dateFormat: 'dd/mm/yy' });
+	});
+
+	function painelAcoes_relocate() {
+		var window_top = $(window).scrollTop();
+		if (window_top > 100) {
+			$('#painelAcoes').addClass('stick');
+		} else {
+			$('#painelAcoes').removeClass('stick');
+		}
+	}
+</script>
+
+<div class="box">
+	<div class="box-header with-border">
+		<div class="btn-toolbar" role="toolbar">
+			<div class="btn-group pull-right" role="group">	
+			</div>
+		</div>
+	</div>
+
+	<div class="box-body" style="height: 100%">
+		<h2> Contas </h2>
+					<table class="table table-striped table-bordered dataTable" id="dtContas">
+						<thead class="bg-blue">
+							<tr>
+								<td>ID</td>
+								<td>TITULO</td>
+								<td>STATUS</td>
+								<td>VALOR</td>
+								<td>PADARIA</td>
+								<td>PAGAMENTO</td>
+								<td>AÇÕES</td>
+							</tr>
+						</thead>
+					</table>
+					<h2> Histórico </h2>
+					<table class="table table-striped table-bordered dataTable" id="dtHistoricos">
+						<thead class="bg-blue">
+							<tr>
+								<td>ID</td>
+								<td>CONTA</td>
+								<td>STATUS</td>
+								<td>PAGAMENTO</td>
+								<td>SALDO ANTES</td>
+								<td>SALDO DEPOIS</td>
+							</tr>
+						</thead>
+					</table>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<!-- Modal Template -->
+
+<div class="modal fade" id="mdlError"
+	tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-red">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">
+					<i class=" fa fa-times"></i> Erro 
+				</h4>
+			</div>
+			<div class="modal-body">
+				{{app.erro.message}}
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">
+					Fechar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

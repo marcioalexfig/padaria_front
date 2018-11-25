@@ -1,0 +1,258 @@
+<!-- Modal Template -->
+<div class="modal modal-default fade" id="mdlAtividade8d" tabindex="-1" role="dialog">
+
+
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">
+					<i class="fa fa-cube"></i>&nbsp;&nbsp;&nbsp;{{modoLeituraAtividade ? 'Exibindo' : (atividade._id ? 'Editando' : 'Nova')}} Atividade
+				</h4>
+			</div>
+			<form name="atividadeForm">
+					
+				<div class="modal-body">
+					<div class="row" >
+							<div class="col-md-2" ng-if="! modoLeituraAtividade" >
+									<label class="pull-left">Medida</label><br />
+									<!--<input id="txtMedida" type="text" ng-model="atividade.medida" class="form-control" ng-readonly="modoLeituraAtividade" />-->
+									<select name="selMedida" class="form-control" ng-model="atividade.medida"   required>
+										<option value="D1">D1</option>
+										<option value="D2">D2</option>
+										<option value="D3">D3</option>
+										<option value="D4">D4</option>
+										<option value="D5">D5</option>
+										<option value="D6">D6</option>
+										<option value="D7">D7</option>
+										<option value="D8">D8</option>
+									</select>
+							</div>
+							<div class="col-md-10">
+								<label class="pull-left" ng-if="atividade.medida == 'D1'"><h3>D1 - Descrição do Problema</h3></label>
+								<label class="pull-left" ng-if="atividade.medida == 'D2'"><h3>D2 - Identificação da Causa Raiz e do Risco de Re-ocorrência</h3></label>
+								<label class="pull-left" ng-if="atividade.medida == 'D3'"><h3>D3 - Medidas Corretivas e Conservadoras</h3></label>
+								<label class="pull-left" ng-if="atividade.medida == 'D4'"><h3>D4 - Identificação das Causas de Não Detecção (ND)</h3></label>
+								<label class="pull-left" ng-if="atividade.medida == 'D5'"><h3>D5 - Identificação Das Causas De Ocorrência (OC)</h3></label>
+								<label class="pull-left" ng-if="atividade.medida == 'D6'"><h3>D6 - Ações Corretivas</h3></label>
+								<label class="pull-left" ng-if="atividade.medida == 'D7'"><h3>D7 - Medição De Eficácia Do Plano De Ação</h3></label>
+								<label class="pull-left" ng-if="atividade.medida == 'D8'"><h3>D8 - Ações Preventivas</h3></label>
+							</div>
+					</div>
+					<div class="row" >
+						<!-- ng-if="atividade.medida == 'D3' || atividade.medida == 'D6' || atividade.medida == 'D7' || atividade.medida == 'D8'   "-->
+						<div class="col-md-4" ng-if="! modoLeituraAtividade" ng-hide="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5' || !atividade.medida.length  ">
+							<label class="pull-left">Prazo/Realização</label><br />
+							<div class="col-md-6" style="margin-left: -120px;">
+								<div class="form-check radio">
+									<label>
+										<input type="radio" name="rdPrazoRealz" ng-model="atividade.prazo.tipo" ng-change="rdPrazoRealzChange()" value="Imediato" ng-disabled="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5' || !atividade.medida.length  "> <span class="label-text">Imediato</span></input>
+									</label>
+								</div>
+								<div class="form-check radio">
+									<label>
+										<input type="radio" name="rdPrazoRealz" ng-model="atividade.prazo.tipo" ng-change="rdPrazoRealzChange()" value="Permanente" ng-disabled="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5' || !atividade.medida.length   " > <span class="label-text">Permanente</span></input>
+									</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-check radio">
+									<label>
+										<input type="radio" name="rdPrazoRealz" ng-model="atividade.prazo.tipo" ng-change="rdPrazoRealzChange()" value="Data"  ng-disabled="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5' || !atividade.medida.length  "> <span class="label-text">Data</span></input>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2"  ng-hide="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5'  || !atividade.medida.length  ">
+							<label class="pull-left">Prazo</label><br />
+							<input id="txtPrazo" type="text" ng-model="atividade.prazo.data" class="form-control data-editavel" ng-disabled="modoLeituraAtividade || atividade.prazo.tipo != 'Data' || atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5'  " ng-required="atividade.prazo.tipo == 'Data'" />
+							<input id="txtTipoPrazo" type="text" ng-model="atividade.prazo.tipo" class="form-control" ng-disabled="true" ng-hide="true"  ng-required="atividade.medida == 'D3' || atividade.medida == 'D6' || atividade.medida == 'D7' || atividade.medida == 'D8'" />							
+						</div>
+						<div class="col-md-2" ng-hide="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5'  || !atividade.medida.length ">
+							<label class="pull-left">Realização</label><br />
+							<input id="txtRealizacao" type="text" ng-model="atividade.realizacao" class="form-control data-editavel" ng-disabled="modoLeituraAtividade || atividade.prazo.tipo != 'Data' || atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5' " />
+						</div>
+					</div>
+					<!-- ng-if="atividade.medida == 'D3' || atividade.medida == 'D6' || atividade.medida == 'D7' ||  atividade.medida == 'D8'   "-->
+					<div class="row"  ng-hide="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5' || !atividade.medida.length ">
+						<div class="col-md-4">
+							<label class="pull-left">Status Prazo</label><br />
+							<select class="form-control" ng-model="atividade.prazoStatus"  ng-disabled="true" >
+								<option value="NA">NA</option>
+								<option value="AF">Aberto / Fora do Prazo</option>
+								<option value="AD">Aberto / Dentro do Prazo</option>
+								<option value="FF">Fechado / Fora do Prazo</option>
+								<option value="FD">Fechado / Dentro do Prazo</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<label class="pull-left">Status</label><br />
+							<select name="selStatus" class="form-control" ng-model="atividade.status" ng-if="! modoLeituraAtividade"  ng-disabled="atividade.medida == 'D1' || atividade.medida == 'D2' || atividade.medida == 'D4' || atividade.medida == 'D5' || !atividade.medida.length " ng-required="atividade.medida == 'D3' || atividade.medida == 'D6' || atividade.medida == 'D7' || atividade.medida == 'D8'" >
+								<option value="EA">Em Aberto</option>
+								<option value="OK">OK</option>
+								<option value="NA">NA</option>
+								<option value="CA">Cancelado</option>
+							</select>
+							<input type="text" class="form-control" value="{{atividade.status}}" ng-readonly="modoLeituraAtividade" ng-if="modoLeituraAtividade" />
+						</div>
+					</div>
+
+					<div ng-if="atividade.medida == 'D1' || atividade.medida == 'D4' || atividade.medida == 'D5'">
+						<div class="row">
+								<div class="col-md-12">
+									<label class="pull-left">Formulação</label><br />
+									<textarea class="form-control" name="txtFormulacao" ng-model="atividade.formulacao" ng-readonly="modoLeituraAtividade"  ng-disabled="atividade.medida == 'D2' || atividade.medida == 'D3' || atividade.medida == 'D6' || atividade.medida == 'D7' || atividade.medida == 'D8' " ng-required="atividade.medida == 'D1' || atividade.medida == 'D4' || atividade.medida == 'D5'"></textarea>
+								</div>
+						</div>
+					</div>
+
+					<div ng-if="atividade.medida == 'D1'">
+							<div class="row">
+								<div class="col-md-12">
+										<label class="pull-left">O Quê?</label><br />
+										<textarea class="form-control" name="txtOQue" ng-model="atividade.oQue" ng-readonly="modoLeituraAtividade"  ng-required="atividade.medida == 'D1'"></textarea>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<label class="pull-left">Qual?</label><br />
+									<input id="txtQual" type="text" ng-model="atividade.qual" class="form-control" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D1'"/>
+								</div>
+								<div class="col-md-4" ng-hide="atividade.medida != 'D1'">
+									<label class="pull-left">Quando?</label><br />
+									<input id="txtQuando" type="text" ng-model="atividade.quando" class="form-control" ng-readonly="modoLeituraAtividade" ng-disabled="modoLeituraAtividade || atividade.medida != 'D1'" ng-required="atividade.medida == 'D1'"/>
+								</div>
+								
+								<div class="col-md-4">
+										<label class="pull-left">Como?</label><br />
+										<textarea class="form-control" name="txtComo" ng-model="atividade.como" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D1'"></textarea>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<label class="pull-left">Quanto?</label><br />
+									<input id="txtQuanto" type="text" ng-model="atividade.quanto" class="form-control" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D1'"/>
+								</div>
+								<div class="col-md-6">
+									<label class="pull-left">Por quê?</label><br />
+									<textarea class="form-control" name="txtPorQue" ng-model="atividade.porQue" ng-readonly="modoLeituraAtividade"    ng-required="atividade.medida == 'D1'"></textarea>
+								</div>
+								<div class="col-md-3">
+										<label class="pull-left">Extensão</label><br />
+										<input class="form-control" name="txtExtensao" ng-model="atividade.extensao" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D1'"></input>
+								</div>
+							</div>
+
+					</div>
+
+
+
+					<div ng-if="atividade.medida == 'D2'">
+						<div class="row" >
+							<div class="col-md-6">
+								<label class="pull-left">1º Por quê?</label><br />
+								<input id="txtPorQue1" type="text" ng-model="atividade.porQue1" class="form-control" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D2'"/>
+							</div>
+							<div class="col-md-6">
+								<label class="pull-left">2º Por quê?</label><br />
+								<input id="txtPorQue2" type="text" ng-model="atividade.porQue2" class="form-control" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D2'"/>
+							</div>
+						</div>
+						<div class="row" >
+							<div class="col-md-6">
+								<label class="pull-left">3º Por quê?</label><br />
+								<input id="txtPorQue3" type="text" ng-model="atividade.porQue3" class="form-control" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D2'"/>
+							</div>
+							<div class="col-md-6">
+								<label class="pull-left">4º Por quê?</label><br />
+								<input id="txtPorQue4" type="text" ng-model="atividade.porQue4" class="form-control" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D2'"/>
+							</div>
+						</div>
+						<div class="row" >
+							<div class="col-md-6">
+								<label class="pull-left">5º Por quê?</label><br />
+								<input id="txtPorQue5" type="text" ng-model="atividade.porQue5" class="form-control" ng-readonly="modoLeituraAtividade"   ng-required="atividade.medida == 'D2'"/>
+							</div>
+						</div>
+						<div class="row" >
+							<div class="col-md-5" style="text-align:left;">
+								<label class="pull-left">Identifica-se risco de ocorrência do problema em sistemas similares?</label><br />
+								<select class="form-control" id="cmbExisteRiscoSimilar" ng-model="atividade.riscoSistSimilar.existe" ng-change="exibeRiscoSistSimilar()" ng-readonly="modoLeituraAtividade" ng-disabled="modoLeituraAtividade"  ng-required="atividade.medida == 'D2'">
+									<option value="true" ng-selected="atividade.riscoSistSimilar.existe == true">SIM</option>
+									<option value="false" ng-selected="atividade.riscoSistSimilar.existe == false">NÃO</option>
+								</select>
+							</div>
+							<div class="col-md-7" style="text-align:left;" ng-hide="atividade.riscoSistSimilar.existe != true">
+								<label>Liste as entidades que potencialmente podem ser afetadas</label>
+								<textarea class="form-control" name="txtRiscoSimilar" ng-model="atividade.riscoSistSimilar.descricao" ng-readonly="modoLeituraAtividade" ng-required="atividade.riscoSistSimilar.existe == true "></textarea>
+							</div>
+						</div>
+					</div>
+					
+
+					
+					<div ng-if="atividade.medida == 'D3' || atividade.medida == 'D6' || atividade.medida == 'D7' ||  atividade.medida == 'D8'   ">
+						<div class="row">
+							<div class="col-md-12">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="pull-left">Ação / Critério</label><br />
+								<textarea class="form-control" name="txtAcao" ng-model="atividade.acao" ng-readonly="modoLeituraAtividade"  ng-disabled="atividade.medida == 'D4' || atividade.medida == 'D5' "  ng-required ="atividade.medida == 'D3' || atividade.medida == 'D6' || atividade.medida == 'D7' ||  atividade.medida == 'D8'   "></textarea>
+							</div>
+						</div>
+						<div class="row" ng-hide="atividade.medida == 'D6' || atividade.medida == 'D7' ||  atividade.medida == 'D8' ">
+							<div class="col-md-12">
+								<label class="pull-left">Informações Complementares</label><br />
+								<textarea class="form-control" name="txtInfoComplementar" ng-model="atividade.infoComplementar" ng-readonly="modoLeituraAtividade"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="pull-left">Observação</label><br />
+								<textarea class="form-control" name="txtObservacao" ng-model="atividade.observacao" ng-readonly="modoLeituraAtividade" ng-disabled="atividade.medida == 'D4' || atividade.medida == 'D5' "></textarea>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<div ng-show="! modoLeituraAtividade">
+						<button class="btn btn-danger btn-flat" data-dismiss="modal" ng-click="cancelarAlteracao8d();">
+							<i class=" fa fa-times"></i>&nbsp;&nbsp;&nbsp;Cancelar
+						</button>
+						<button class="btn btn-primary btn-flat" ng-disabled="atividadeForm.$invalid" ng-click="salvarAtividade8d()">
+							<i class=" fa fa-check"></i>&nbsp;&nbsp;&nbsp;Salvar
+						</button>
+					</div>
+					
+					<div ng-show="modoLeituraAtividade">
+						<button class="btn btn-primary btn-flat" data-dismiss="modal">
+							<i class=" fa fa-check"></i>&nbsp;&nbsp;&nbsp;Ok
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(() => {
+		$("#txtPrazo").datepicker({ dateFormat: 'dd/mm/yy' });
+		$("#txtRealizacao").datepicker({ dateFormat: 'dd/mm/yy' });
+	});
+</script>
+
+<style>
+	.ui-select-multiple.ui-select-bootstrap {height: 34px; padding-left: 4px; padding-top: 4px; padding-bottom: 0px;padding-right: 0px;}
+	.ui-select-multiple.ui-select-bootstrap input.ui-select-search {width: 125px !important; margin-left: 10px;}
+	.checkbox, .radio {margin-top: 0px; margin-bottom: 2px; text-align: left;}
+	.checkbox label, .radio label {padding-left: 0px;}
+</style>

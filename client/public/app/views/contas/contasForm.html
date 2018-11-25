@@ -1,0 +1,90 @@
+<style>
+	.row {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+</style>
+
+<script type="text/javascript">
+	$(() => {
+		$(window).scroll(painelAcoes_relocate);
+		painelAcoes_relocate();
+
+		$("#txtDtPagamento").datepicker({ dateFormat: 'dd/mm/yy' });
+	});
+
+	function painelAcoes_relocate() {
+		var window_top = $(window).scrollTop();
+		if (window_top > 100) {
+			$('#painelAcoes').addClass('stick');
+		} else {
+			$('#painelAcoes').removeClass('stick');
+		}
+	}
+</script>
+
+<div class="row">
+	<div class="col-md-9">
+
+						<form name="contaForm" id="contaForm">
+							<div class='row'>
+									<div class="col-md-12" style='text-align:right;'>
+									</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3" style="text-align:left;">
+										<label>Título</label>
+										<input type="text" class="form-control" ng-model="conta.titulo" value="{{conta.titulo}}" ng-readonly="modoLeitura" required/>
+								</div>
+								<div class="col-md-2 " style="text-align:left;">
+									<label>Data Pagamento</label>
+									<input type="text" id="txtDtPagamento" class="form-control data-editavel" ng-model="conta.dataPagamento" ng-disabled="modoLeitura" required />
+								</div>
+								<div class="col-md-2" style="text-align:left;">
+									<label>Padaria</label>
+									<select name="selSite" class="form-control" ng-model="conta.padaria" ng-if="! modoLeitura" required>
+										<option value="1">'Santa Bárbara dOeste - SP'</option>
+										<option value="2">'Americana - SP.'</option>
+									</select>
+									<input type="text" class="form-control" value="{{conta.padaria}}" ng-readonly="modoLeitura" ng-if="modoLeitura" />
+								</div>
+								<div class="col-md-3">
+									<label class="pull-left">Status</label><br />
+									<select name="selStatus" class="form-control" ng-model="conta.status" ng-if="! modoLeitura" ng-required="true" >
+										<option value="ABERTA">Em Aberto</option>
+										<option value="BAIXADA">Baixada</option>
+									</select>
+									<input type="text" class="form-control" value="{{conta.status}}" ng-readonly="modoLeitura" ng-if="modoLeitura" />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3" style="text-align:left;">
+										<label>Valor</label>
+										<input type="text" class="form-control" ng-model="conta.valor" value="{{conta.valor}}" ng-readonly="modoLeitura" required/>
+								</div>
+							</div>
+
+						</form>
+					
+		</div>
+	</div>
+	<div id="painelAcoes" class="col-md-3">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Status/A&ccedil;&otilde;es</h3>
+			</div>
+			<div class="box-body">
+
+				<div ng-if="!modoLeitura">
+					<button class="btn btn-danger btn-flat" onclick="window.history.back();">
+						<i class=" fa fa-times"></i>&nbsp;&nbsp;&nbsp;Cancelar
+					</button>
+					<button class="btn btn-primary btn-flat" ng-disabled="contaForm.$invalid" ng-click="salvarConta()">
+						<i class=" fa fa-check"></i>&nbsp;&nbsp;&nbsp;Salvar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
